@@ -1,0 +1,85 @@
+> View(hw1data)
+> names(hw1data)
+[1] "Ozone"   "Solar.R" "Wind"    "Temp"    "Month"   "Day"   
+
+> colnames(hw1data)
+[1] "Ozone"   "Solar.R" "Wind"    "Temp"    "Month"   "Day" 
+
+> nrow(hw1data)
+[1] 153
+
+> print(hw1data[1:2, ])
+# A tibble: 2 x 6
+  Ozone Solar.R  Wind  Temp Month   Day
+  <int>   <int> <dbl> <int> <int> <int>
+1    41     190  7.40    67     5     1
+2    36     118  8.00    72     5     2
+
+> n <- nrow(hw1data)
+> print(hw1data[(n - 2 + 1):n, ])
+# A tibble: 2 x 6
+  Ozone Solar.R  Wind  Temp Month   Day
+  <int>   <int> <dbl> <int> <int> <int>
+1    18     131  8.00    76     9    29
+2    20     223 11.5     68     9    30
+
+> miss <- is.na(hw1data[, "Ozone"])  ## A vector of TRUE/FALSE
+> sum(miss)
+[1] 37
+
+> u<-cbind("Ozone")
+> print(u)
+     [,1]   
+[1,] "Ozone"
+> z<-hw1data[1:153,1]
+> print(z)
+# A tibble: 153 x 1
+   Ozone
+   <int>
+ 1    41
+ 2    36
+ 3    12
+ 4    18
+ 5    NA
+ 6    28
+ 7    23
+ 8    19
+ 9     8
+10    NA
+# ... with 143 more rows
+> u<-cbind(z)
+> print(u)
+> u<-u[!is.na(u)]
+> print(u)
+> u<-cbind(u)
+> result<-colMeans(u)
+> print(u)
+> print(result)
+       u 
+42.12931 
+
+> Ozone <- na.omit(hw1data$Ozone)
+> as.numeric(Ozone)
+  [1]  41  36  12  18  28  23  19   8   7  16  11  14  18  14  34   6  30  11   1  11   4  32  23
+ [24]  45 115  37  29  71  39  23  21  37  20  12  13 135  49  32  64  40  77  97  97  85  10  27
+ [47]   7  48  35  61  79  63  16  80 108  20  52  82  50  64  59  39   9  16  78  35  66 122  89
+ [70] 110  44  28  65  22  59  23  31  44  21   9  45 168  73  76 118  84  85  96  78  73  91  47
+ [93]  32  20  23  21  24  44  21  28   9  13  46  18  13  24  16  13  23  36   7  14  30  14  18
+[116]  20
+
+> mean(Ozone)
+[1] 42.12931
+> hw1data.subO <- hw1data[hw1data$Ozone > 31, , drop = FALSE]
+> hw1data.subTO <- hw1data.subO[hw1data.subO$Temp > 90, , drop = FALSE]
+> hw1data.subTOO <- na.omit(hw1data.subTO)
+> mean(hw1data.subTOO$Solar.R)
+[1] 212.8
+>
+> hw1data.June <- hw1data[hw1data$Month == 6, , drop = FALSE]
+> mean(hw1data.June$Temp)
+[1] 79.1
+> 
+> hw1data.May <- hw1data[hw1data$Month == 5, , drop = FALSE]
+> hw1data.MayO <- na.omit(hw1data.May)
+> max(hw1data.MayO$Ozone)
+[1] 115
